@@ -44,7 +44,7 @@ Dự án được xây dựng nhằm:
 
 > Dự án chỉ phục vụ **mục đích học tập**, không được sử dụng với mục đích xấu hoặc gây hại. Mọi hành vi lạm dụng sẽ hoàn toàn thuộc về trách nhiệm của cá nhân sử dụng.
 
-Dữ liệu sau khi submit sẽ được lưu tại file data.json và sẽ được convert về file data.csv nếu cần thiết (dễ theo dõi và quản lý để khai thác sử dụng)
-File rand.py dùng để random ra 1 số điện thoại ngẫu nhiên mặc định là đầu 09
-Trường idNumber (CCCD) có thể ở dạng ký tự vì chúng tôi sử dụng mã sinh viên để thay thế cho số CCCD
-Mọi thắc mắc khác xin vui lòng liên hệ để được giải đáp.
+- Dữ liệu sau khi submit sẽ được lưu tại file data.json và sẽ được convert về file data.csv nếu cần thiết (dễ theo dõi và quản lý để khai thác sử dụng).
+- File rand.py dùng để random ra 1 số điện thoại ngẫu nhiên mặc định là đầu 09.
+- Trường idNumber (CCCD) có thể ở dạng ký tự vì chúng tôi sử dụng mã sinh viên để thay thế cho số CCCD.
+- Mọi thắc mắc khác xin vui lòng liên hệ để được giải đáp.
